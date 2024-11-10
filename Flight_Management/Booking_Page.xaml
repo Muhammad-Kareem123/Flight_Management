@@ -1,0 +1,36 @@
+<Page x:Class="project.booking"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:project"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="booking">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/OIP (2).jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="311,10,0,0" TextWrapping="Wrap" Text="Booking" VerticalAlignment="Top" FontFamily="Monotype Corsiva" FontSize="72" Foreground="White" Width="229" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,127,0,0" TextWrapping="Wrap" Text="Name : " VerticalAlignment="Top" FontFamily="Monotype Corsiva" FontSize="36" RenderTransformOrigin="-1.033,0.456" Foreground="White" Grid.RowSpan="2"/>
+        <TextBox x:Name="txtname" HorizontalAlignment="Left" Margin="126,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="29" Grid.RowSpan="2" TextChanged="txtname_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,34,0,0" TextWrapping="Wrap" Text="Date Of Birth :" VerticalAlignment="Top" FontFamily="Monotype Corsiva" FontSize="36" RenderTransformOrigin="-1.033,0.456" Foreground="White" Grid.Row="1"/>
+        <TextBox x:Name="txtdate" HorizontalAlignment="Left" Margin="231,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="29" Grid.Row="1" TextChanged="txtdate_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,34,0,0" TextWrapping="Wrap" Text="I:" VerticalAlignment="Top" FontFamily="Monotype Corsiva" FontSize="36" RenderTransformOrigin="-1.033,0.456" Foreground="White" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Monotype Corsiva" FontSize="36" Grid.Row="1"><Run Text="Departure City : "/><Run/></TextBlock>
+        <TextBox x:Name="txtcity" HorizontalAlignment="Left" Margin="243,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="29" Grid.Row="1" TextChanged="txtcity_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="21,23,0,0" TextWrapping="Wrap" Text="Destination City :" VerticalAlignment="Top" Foreground="White" FontFamily="Monotype Corsiva" FontSize="36" Grid.Row="2"/>
+        <TextBox x:Name="txt" HorizontalAlignment="Left" Margin="272,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="29" Grid.Row="2" TextChanged="txt_TextChanged"/>
+        <Button x:Name="button" Content="confirm booking" HorizontalAlignment="Left" Margin="267,90,0,0" VerticalAlignment="Top" BorderBrush="White" Background="White" Height="39" Width="110" FontFamily="Monotype Corsiva" FontSize="18" Grid.Row="2" Grid.Column="1" Click="Button_Click"/>
+    </Grid>
+</Page>
