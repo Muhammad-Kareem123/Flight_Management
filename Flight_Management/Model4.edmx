@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Flight_Management2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightID" Type="int" />
+          <Property Name="pID" Type="int" />
+          <Property Name="BookingDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="FlightID" />
+          </Key>
+          <Property Name="FlightID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightNumber" Type="int" />
+          <Property Name="DepartureCity" Type="varchar" MaxLength="250" />
+          <Property Name="DestinationCity" Type="varchar" MaxLength="250" />
+          <Property Name="DepartureTime" Type="date" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="Passenger">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pname" Type="varchar" MaxLength="250" />
+          <Property Name="DoB" Type="date" />
+        </EntityType>
+        <Association Name="FK__Bookings__Flight__3C69FB99">
+          <End Role="Flights" Type="Self.Flights" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="FlightID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="FlightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__pID__3D5E1FD2">
+          <End Role="Passenger" Type="Self.Passenger" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passenger">
+              <PropertyRef Name="pID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="pID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Flight_Management2ModelStoreContainer">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passenger" EntityType="Self.Passenger" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bookings__Flight__3C69FB99" Association="Self.FK__Bookings__Flight__3C69FB99">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__pID__3D5E1FD2" Association="Self.FK__Bookings__pID__3D5E1FD2">
+            <End Role="Passenger" EntitySet="Passenger" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Flight_Management2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightID" Type="Int32" />
+          <Property Name="pID" Type="Int32" />
+          <Property Name="BookingDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK__Bookings__Flight__3C69FB99" FromRole="Bookings" ToRole="Flights" />
+          <NavigationProperty Name="Passenger" Relationship="Self.FK__Bookings__pID__3D5E1FD2" FromRole="Bookings" ToRole="Passenger" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="FlightID" />
+          </Key>
+          <Property Name="FlightID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightNumber" Type="Int32" />
+          <Property Name="DepartureCity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationCity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DepartureTime" Type="DateTime" Precision="0" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Flight__3C69FB99" FromRole="Flights" ToRole="Bookings" />
+        </EntityType>
+        <EntityType Name="Passenger">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__pID__3D5E1FD2" FromRole="Passenger" ToRole="Bookings" />
+        </EntityType>
+        <Association Name="FK__Bookings__Flight__3C69FB99">
+          <End Role="Flights" Type="Self.Flights" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="FlightID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="FlightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__pID__3D5E1FD2">
+          <End Role="Passenger" Type="Self.Passenger" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passenger">
+              <PropertyRef Name="pID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="pID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Flight_Management2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" />
+          <EntitySet Name="Passenger" EntityType="Self.Passenger" />
+          <AssociationSet Name="FK__Bookings__Flight__3C69FB99" Association="Self.FK__Bookings__Flight__3C69FB99">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__pID__3D5E1FD2" Association="Self.FK__Bookings__pID__3D5E1FD2">
+            <End Role="Passenger" EntitySet="Passenger" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Flight_Management2ModelStoreContainer" CdmEntityContainer="Flight_Management2Entities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="Flight_Management2Model.Bookings">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+                <ScalarProperty Name="pID" ColumnName="pID" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="Flight_Management2Model.Flights">
+              <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+                <ScalarProperty Name="DepartureCity" ColumnName="DepartureCity" />
+                <ScalarProperty Name="DestinationCity" ColumnName="DestinationCity" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passenger">
+            <EntityTypeMapping TypeName="Flight_Management2Model.Passenger">
+              <MappingFragment StoreEntitySet="Passenger">
+                <ScalarProperty Name="pID" ColumnName="pID" />
+                <ScalarProperty Name="pname" ColumnName="pname" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

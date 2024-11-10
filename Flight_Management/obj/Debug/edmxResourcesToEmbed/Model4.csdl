@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Flight_Management2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FlightID" Type="Int32" />
+    <Property Name="pID" Type="Int32" />
+    <Property Name="BookingDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Flights" Relationship="Self.FK__Bookings__Flight__3C69FB99" FromRole="Bookings" ToRole="Flights" />
+    <NavigationProperty Name="Passenger" Relationship="Self.FK__Bookings__pID__3D5E1FD2" FromRole="Bookings" ToRole="Passenger" />
+  </EntityType>
+  <EntityType Name="Flights">
+    <Key>
+      <PropertyRef Name="FlightID" />
+    </Key>
+    <Property Name="FlightID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FlightNumber" Type="Int32" />
+    <Property Name="DepartureCity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="DestinationCity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="DepartureTime" Type="DateTime" Precision="0" />
+    <Property Name="Price" Type="Int32" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Flight__3C69FB99" FromRole="Flights" ToRole="Bookings" />
+  </EntityType>
+  <EntityType Name="Passenger">
+    <Key>
+      <PropertyRef Name="pID" />
+    </Key>
+    <Property Name="pID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="DoB" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__pID__3D5E1FD2" FromRole="Passenger" ToRole="Bookings" />
+  </EntityType>
+  <Association Name="FK__Bookings__Flight__3C69FB99">
+    <End Role="Flights" Type="Self.Flights" Multiplicity="0..1" />
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flights">
+        <PropertyRef Name="FlightID" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="FlightID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Bookings__pID__3D5E1FD2">
+    <End Role="Passenger" Type="Self.Passenger" Multiplicity="0..1" />
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Passenger">
+        <PropertyRef Name="pID" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="pID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Flight_Management2Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bookings" EntityType="Self.Bookings" />
+    <EntitySet Name="Flights" EntityType="Self.Flights" />
+    <EntitySet Name="Passenger" EntityType="Self.Passenger" />
+    <AssociationSet Name="FK__Bookings__Flight__3C69FB99" Association="Self.FK__Bookings__Flight__3C69FB99">
+      <End Role="Flights" EntitySet="Flights" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Bookings__pID__3D5E1FD2" Association="Self.FK__Bookings__pID__3D5E1FD2">
+      <End Role="Passenger" EntitySet="Passenger" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
